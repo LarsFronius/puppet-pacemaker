@@ -4,6 +4,7 @@ Vagrant::Config.run do |config|
     puppet.manifests_path = "manifests"
     puppet.manifest_file = "site.pp"
     puppet.module_path = "modules"
+#    puppet.options = "--verbose --debug"
   end
 
   config.vm.define :host01 do |config|

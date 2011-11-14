@@ -5,6 +5,7 @@ node 'host01' {
 }
 
 node /^host0([2-9])/ {
-    include skeleton
+    class { 'pacemaker::service::slapd':
+        clustername => 'default'
+    }
 }
-

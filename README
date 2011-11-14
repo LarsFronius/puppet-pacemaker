@@ -1,0 +1,31 @@
+This is a module to manage pacemaker-clusters and services from within puppet.
+
+== Setup the cluster and services ==
+
+== Add module for service ==
+
+If you want to set-up a service, you will want to add a pacemaker::service::servicename class.
+Best choice to do this, is the modules/pacemaker/manifests/services/ directory.
+The service definition should have a parameter for the cluster-name and it should include the pacemaker::service class in the following manner:
+
+class pacemaker::service::foobar ( $clustername = 'default' ) {
+    pacemaker::service { "foobar":
+        clustername => $clustername,
+        servicename => 'foobar',
+        require => [Package["foobar","foobaz"]]
+    }
+(...)
+
+The require should include all the packages and file you are using within the pacemaker::service::servicename class.
+
+== Add cluster ==
+
+A cluster consists of three files. The configuration of the cluster messaging (corosync.conf), 
+an authentication key for the encrypted and authenticated communication within the cluster (authkey)
+and some general configuration of your cluster like quorum configuration. (crm.cib)
+
+All of these files should come into a directory within the files directory called cluster-clustername. That's it.
+
+You can include them by setting the $clustername in the pacemaker::service::servicename class to your directories clustername.
+
+That's it.
