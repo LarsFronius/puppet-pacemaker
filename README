@@ -29,3 +29,16 @@ All of these files should come into a directory within the files directory calle
 You can include them by setting the $clustername in the pacemaker::service::servicename class to your directories clustername.
 
 That's it.
+
+== nodes.pp ==
+
+node 'host01' {
+    include pacemaker::service::slapd
+}
+
+node /^host0([2-9])/ {
+    class { 'pacemaker::service::slapd':
+        clustername => 'default'
+    }
+}
+
